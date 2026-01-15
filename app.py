@@ -4,18 +4,22 @@ from flask_socketio import SocketIO, emit
 app = Flask(__name__)
 socketio = SocketIO(app)
 
+message = "raised"
+
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html", message=message)
 
-@app.route("/raise")
+@socketio.on("raise")
 def guardRaise():
-    emit("raise", "raised", broadcast=True, namespace="/")
-    return "raised"
+    global message
+    message = "raised"
+    emit("raised", message, broadcast=True, namespace="/")
 
-@app.route("/lower")
+@socketio.on("lower")
 def guardLower():
-    emit("lower", "lowered", broadcast=True, namespace="/")
-    return "lowered"
+    global message
+    message = "lowered"
+    emit("lowered", message, broadcast=True, namespace="/")
 
 socketio.run(app, debug=True)

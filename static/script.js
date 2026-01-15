@@ -1,24 +1,18 @@
 const status_element = document.querySelector("#status")
 const socket = io()
 
-socket.on("connect", () => {
-    console.log("connected")
+socket.on("raised", (msg) => {
+    status_element.innerHTML = msg
 })
 
-socket.on("raise", () => {
-    status_element.innerHTML = "raised"
-})
-
-socket.on("lower", () => {
-    status_element.innerHTML = "lowered"
+socket.on("lowered", (msg) => {
+    status_element.innerHTML = msg
 })
 
 async function raise() {
-    const res = await fetch("/raise")
-    status_element.innerHTML = await res.text()
+    socket.emit("raise")
 }
 
 async function lower() {
-    const res = await fetch("/lower")
-    status_element.innerHTML = await res.text()
+    socket.emit("lower")
 }
