@@ -22,6 +22,10 @@ body {
     border-radius: 6px;
 }
 
+.status {
+    margin: 10px 0;
+}
+
 .raise {
     background-color: green;
 }

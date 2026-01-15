@@ -1,6 +1,8 @@
 from flask import Flask, render_template
+from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
+socketio = SocketIO(app)
 
 @app.route("/")
 def index():
@@ -8,10 +10,12 @@ def index():
 
 @app.route("/raise")
 def guardRaise():
-    pass
+    emit("raise", "raised", broadcast=True, namespace="/")
+    return "raised"
 
 @app.route("/lower")
 def guardLower():
-    pass
+    emit("lower", "lowered", broadcast=True, namespace="/")
+    return "lowered"
 
-app.run(debug=True)
+socketio.run(app, debug=True)
