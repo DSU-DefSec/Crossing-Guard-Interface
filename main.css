@@ -1,0 +1,32 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 80px);
+}
+
+.btn {
+    width: 250px;
+    padding: 15px;
+    margin: 10px 0;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    border-radius: 6px;
+}
+
+.raise {
+    background-color: green;
+}
+
+.lower {
+    background-color: red;
+}
+
