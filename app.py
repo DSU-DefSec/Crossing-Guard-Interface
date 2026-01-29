@@ -1,12 +1,16 @@
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit
 import hashlib
+import json
 
 app = Flask(__name__)
 socketio = SocketIO(app)
 
+with open("config.json", "r") as file:
+    config = json.load(file)
+
 message = "raised"
-password = "easy password"
+password = config["password"]
 phash = hashlib.sha256(bytes(password, encoding="utf-8")).hexdigest()
 
 def verifyPassword(passw):
