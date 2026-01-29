@@ -9,7 +9,7 @@ socketio = SocketIO(app)
 with open("config.json", "r") as file:
     config = json.load(file)
 
-message = "raised"
+message = "lowered"
 password = config["password"]
 phash = hashlib.sha256(bytes(password, encoding="utf-8")).hexdigest()
 
@@ -40,5 +40,11 @@ def guardLower():
         return "lowered"
     else:
         return "incorrect password"
+
+
+@app.route("/status", methods=["POST"])
+def status():
+    global message
+    return message
 
 socketio.run(app, debug=True)
